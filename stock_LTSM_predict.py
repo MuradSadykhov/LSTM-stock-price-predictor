@@ -16,11 +16,11 @@ from tensorflow.keras.callbacks import EarlyStopping
 # CONFIG
 
 
-TICKER = "TSLA"          # <- change to AAPL, TSLA, etc.
+TICKER = "APPL"          
 START_DATE = "2021-01-01"
 END_DATE = datetime.today().strftime("%Y-%m-%d")
 
-LOOKBACK = 60            # how many past days to use to predict the next day
+LOOKBACK = 60            
 TEST_SIZE = 0.2          # last 20% of samples used for testing
 
 
@@ -112,7 +112,7 @@ print(f"Train samples: {len(X_train)}, Test samples: {len(X_test)}")
 
 # HYPERPARAMETERS
 
-EPOCHS = 100          # increased from 60
+EPOCHS = 100         
 BATCH_SIZE = 16       # smaller batches can help convergence
 DROPOUT_RATE = 0.3    # regularization strength
 
@@ -140,7 +140,7 @@ model = Sequential([
 
 model.compile(
     optimizer="adam",
-    loss="mae"      # MAE works nicely for price prediction
+    loss="mae"     
 )
 
 
@@ -235,7 +235,7 @@ plt.show()
 print("\nNext-Day Price Prediction:")
 
 # use the LAST LOOKBACK rows from the scaled feature matrix
-last_sequence = scaled_features[-LOOKBACK:]              # shape (LOOKBACK, num_features)
+last_sequence = scaled_features[-LOOKBACK:]             
 last_sequence = last_sequence.reshape(1, LOOKBACK, -1)   # shape (1, LOOKBACK, num_features)
 
 next_price_scaled = model.predict(last_sequence)[0][0]
@@ -254,4 +254,5 @@ last_close = float(df[price_col].iloc[-1])
 
 print(f"Last closing ({price_col}): {last_close:.2f}")
 print(f"Predicted next-day ({price_col}): {next_price:.2f}")
+
 print("----------------------------------------")
